@@ -1,0 +1,30 @@
+doctype html
+html
+    head
+        title= title
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css")
+        link(rel="stylesheet", href="/css/style.css")
+    body
+        .container.mt-5
+            h1.mb-4 Create Contact
+            form(id="createForm", action="/create-contact", method="post")
+                .form-group
+                    label(for="firstname") First Name:
+                    input.form-control(type="text", id="firstname", name="firstname")
+                .form-group
+                    label(for="lastname") Last Name:
+                    input.form-control(type="text", id="lastname", name="lastname")
+                .form-group
+                    label(for="age") Age:
+                    input.form-control(type="text", id="age", name="age")
+                .form-group
+                    label(for="gametag") Gametag:
+                    input.form-control(type="text", id="gametag", name="gametag")
+                .form-group
+                    label(for="gamer_platform") Gamer Platform:
+                    input.form-control(type="text", id="gamer_platform", name="gamer_platform")
+                .form-group
+                    label(for="email") Email:
+                    input.form-control(type="email", id="email", name="email")
+                button.btn.btn-primary(type="submit") Submit
