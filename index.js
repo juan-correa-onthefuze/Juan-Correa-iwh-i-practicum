@@ -25,5 +25,36 @@ app.get('/', async (req, res) => {
     }
 });
 
+app.get('/create-contact', (req, res) => {
+    res.render('create-contact', { title: 'Create Contact' });
+});
+
+app.post('/create-contact', async (req, res) => {
+    const newContact = {
+        properties: {
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            age: req.body.age,
+            gametag: req.body.gametag,
+            gamer_platform: req.body.gamer_platform,
+            email: req.body.email
+        }
+    };
+
+    const createContactUrl = 'https://api.hubspot.com/crm/v3/objects/contacts';
+    const headers = {
+        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+        'Content-Type': 'application/json'
+    };
+
+    try {
+        await axios.post(createContactUrl, newContact, { headers });
+        res.redirect('/');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
 
 app.listen(3000, () => console.log('Listening on http://localhost:3000'));
