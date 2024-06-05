@@ -1,0 +1,41 @@
+doctype html
+html
+    head
+        title= title
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css")
+        link(rel="stylesheet", href="/css/style.css")
+    body
+        .container.mt-5
+            h1.mb-4 Contacts
+            table.table.table-striped
+                thead.thead-dark
+                    tr
+                        th Contact ID
+                        th First Name
+                        th Last Name
+                        th Email
+                        th Age
+                        th Gametag 
+                        th Gamer Platform
+                        th Action
+                tbody
+                    each contact in contacts
+                        tr
+                            td #{contact.id}
+                            td #{contact.properties.firstname}
+                            td #{contact.properties.lastname}
+                            td #{contact.properties.email}
+                            td #{contact.properties.age}
+                            td #{contact.properties.gametag}
+                            td #{contact.properties.gamer_platform}
+                            td
+                                a.btn.btn-primary(href="javascript:void(0)", onclick="redirectToUpdate('" + contact.id + "')") Update
+        .container.mt-5
+            a.btn.btn-success(href="/create-contact") Add Contact
+
+        script.
+            function redirectToUpdate(contactId) {
+                console.log('Contact ID:', contactId);
+                window.location.href = '/update-contact?id=' + contactId;
+            }
