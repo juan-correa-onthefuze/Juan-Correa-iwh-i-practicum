@@ -56,5 +56,51 @@ app.post('/create-contact', async (req, res) => {
     }
 });
 
+app.get('/update-contact', async (req, res) => {
+    const contactId = req.query.id;
+    const contactUrl = `https://api.hubspot.com/crm/v3/objects/contacts/${contactId}?properties=age,gametag,gamer_platform,firstname,lastname,email`;
+    const headers = {
+        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+        'Content-Type': 'application/json'
+    };
+
+    try {
+        const resp = await axios.get(contactUrl, { headers });
+        const contact = resp.data;
+        res.render('update-contact', { title: 'Update Contact', contact });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
+
+app.post('/update-contact', async (req, res) => {
+    const contactId = req.body.contactId;
+    const update = {
+        properties: {
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            age: req.body.age,
+            gametag: req.body.gametag,
+            gamer_platform: req.body.gamer_platform,
+            email: req.body.email // Add email to the properties object
+        }
+    };
+
+    const updateContactUrl = `https://api.hubspot.com/crm/v3/objects/contacts/${contactId}`;
+    const headers = {
+        Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
+        'Content-Type': 'application/json'
+    };
+
+    try {
+        const response = await axios.patch(updateContactUrl, update, { headers });
+        console.log('Contact updated:', response.data);
+        res.redirect('/');
+    } catch (error) {
+        console.error('Error updating contact:', error.response.data);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
 app.listen(3000, () => console.log('Listening on http://localhost:3000'));
