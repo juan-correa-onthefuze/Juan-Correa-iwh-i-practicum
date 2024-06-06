@@ -1,0 +1,31 @@
+doctype html
+html
+    head
+        title= title
+        meta(name="viewport", content="width=device-width, initial-scale=1")
+        link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css")
+        link(rel="stylesheet", href="/css/style.css")
+    body
+        .container.mt-5
+            h1.mb-4 Update Contact
+            form(id="updateForm", action="/update-contact", method="post")
+                input(type="hidden", id="contactId", name="contactId", value=contact.id)
+                .form-group
+                    label(for="firstname") First Name:
+                    input.form-control(type="text", id="firstname", name="firstname", value=contact.properties.firstname)
+                .form-group
+                    label(for="lastname") Last Name:
+                    input.form-control(type="text", id="lastname", name="lastname", value=contact.properties.lastname)
+                .form-group
+                    label(for="age") Age:
+                    input.form-control(type="text", id="age", name="age", value=contact.properties.age)
+                .form-group
+                    label(for="gametag") Gametag:
+                    input.form-control(type="text", id="gametag", name="gametag", value=contact.properties.gametag)
+                .form-group
+                    label(for="gamer_platform") Gamer Platform:
+                    input.form-control(type="text", id="gamer_platform", name="gamer_platform", value=contact.properties.gamer_platform)
+                .form-group
+                    label(for="email") Email:
+                    input.form-control(type="email", id="email", name="email", value=contact.properties.email)
+                button.btn.btn-primary(type="submit") Submit
